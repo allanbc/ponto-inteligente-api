@@ -1,5 +1,8 @@
 package com.allanbc.pontointeligente.api.entities;
+import lombok.Data;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,79 +18,35 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+@Data
 @Entity
 @Table(name = "empresa")
 public class Empresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private String razaoSocial;
-    private String cnpj;
-    private Date dataCriacao;
-    private Date dataAtualizacao;
-    private List<Funcionario> funcionarios;
-
-    public Empresa() {
-    }
-
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Column(name = "razao_social", nullable = false)
-    public String getRazaoSocial() {
-        return razaoSocial;
-    }
-
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
-    }
+    private Long id;
 
     @Column(name = "cnpj", nullable = false)
-    public String getCnpj() {
-        return cnpj;
-    }
+    private String razaoSocial;
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
+    @Column(name = "razao_social", nullable = false)
+    private String cnpj;
 
     @Column(name = "data_criacao", nullable = false)
-    public Date getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(Date dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
+    private Date dataCriacao;
 
     @Column(name = "data_atualizacao", nullable = false)
-    public Date getDataAtualizacao() {
-        return dataAtualizacao;
-    }
+    private Date dataAtualizacao;
 
-    public void setDataAtualizacao(Date dataAtualizacao) {
-        this.dataAtualizacao = dataAtualizacao;
-    }
-
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Funcionario> getFuncionarios() {
-        return funcionarios;
-    }
-
-    public void setFuncionarios(List<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
-    }
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, targetEntity = Funcionario.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Funcionario> funcionarios;
 
     @PreUpdate
     public void preUpdate() {
+
         dataAtualizacao = new Date();
     }
 
