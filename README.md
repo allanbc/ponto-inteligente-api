@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/m4rciosouza/ponto-inteligente-api.svg?branch=master)](https://travis-ci.org/m4rciosouza/ponto-inteligente-api)
-# Ponto Inteligente
+# Ponto Inteligente - Allan BC
 API do sistema de ponto inteligente com Java e Spring Boot.
 ### Detalhes da API RESTful
 A API RESTful de Ponto Inteligente contém as seguintes características:  
